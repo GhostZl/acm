@@ -56,16 +56,19 @@ error_reporting(E_ALL | E_STRICT);
 define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 // Make the application relative to the docroot, for symlink'd index.php
-if ( ! is_dir($application) AND is_dir(DOCROOT.$application))
+if (! is_dir($application) and is_dir(DOCROOT.$application)) {
     $application = DOCROOT.$application;
+}
 
 // Make the modules relative to the docroot, for symlink'd index.php
-if ( ! is_dir($modules) AND is_dir(DOCROOT.$modules))
+if (! is_dir($modules) and is_dir(DOCROOT.$modules)) {
     $modules = DOCROOT.$modules;
+}
 
 // Make the system relative to the docroot, for symlink'd index.php
-if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
+if (! is_dir($system) and is_dir(DOCROOT.$system)) {
     $system = DOCROOT.$system;
+}
 
 // Define the absolute paths for configured directories
 define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
@@ -77,16 +80,14 @@ unset($application, $modules, $system);
 /**
  * Define the start time of the application, used for profiling.
  */
-if ( ! defined('KOHANA_START_TIME'))
-{
-    define('KOHANA_START_TIME', microtime(TRUE));
+if (! defined('KOHANA_START_TIME')) {
+    define('KOHANA_START_TIME', microtime(true));
 }
 
 /**
  * Define the memory usage at the start of the application, used for profiling.
  */
-if ( ! defined('KOHANA_START_MEMORY'))
-{
+if (! defined('KOHANA_START_MEMORY')) {
     define('KOHANA_START_MEMORY', memory_get_usage());
 }
 
@@ -96,7 +97,7 @@ require APPPATH.'bootstrap'.EXT;
  * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
  * If no source is specified, the URI will be automatically detected.
  */
-$request = Request::factory(TRUE, array(), FALSE);
+$request = Request::factory(true, array(), false);
 //$request = Request::factory(TRUE);
 //$request = Request::factory('user/login')->method(Request::POST)->post(array('username' => 'admin', 'pwd' => 'aaa111'));
 // Attempt to execute the response
@@ -105,25 +106,21 @@ $response = $request->execute();
 //         ->body();
 
 $http_code = $response->status();
- if ( $http_code != 200 AND $http_code != 302 )
- {
-     if (Kohana::$environment !== Kohana::DEVELOPMENT)
-     {
-        // $view = View::factory('error');
-         $response->body("出错了，请联系管理员!");
-     }
- }
+if ($http_code != 200 and $http_code != 302) {
+    if (Kohana::$environment !== Kohana::DEVELOPMENT) {
+        $view = View::factory('error');
+        // $response->body("出错了，请联系管理员!");
+    }
+}
 
-if ($response->send_headers())
-{
+if ($response->send_headers()) {
     // Get the total memory and execution time
     $total = array(
         '{memory_usage}' => number_format((memory_get_peak_usage() - KOHANA_START_MEMORY) / 1024, 2).'KB',
-        '{execution_time}' => number_format(microtime(TRUE) - KOHANA_START_TIME, 5).' sec');
+        '{execution_time}' => number_format(microtime(true) - KOHANA_START_TIME, 5).' sec');
 
     // Insert the totals into the response
     $response = str_replace(array_keys($total), $total, $response);
 }
 
 echo $response;
-
