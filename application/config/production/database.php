@@ -10,15 +10,15 @@ return array
         'type'       => 'MySQLi',
         'connection' => array(
             'hostname'   => '127.0.0.1',
-            'database'   => 'judge',
+            'database'   => 'acm',
             'username'   => 'root',
-            'password'   => '#mJl&dcs.6(O',
-            'persistent' => FALSE,
+            'password'   => '19950305',
+            'persistent' => false,
         ),
         'table_prefix' => '',
         'charset'      => 'utf8',
-        'caching'      => FALSE,
-        'profiling'    => TRUE,
+        'caching'      => false,
+        'profiling'    => true,
     ),
     'alternate' => array(
         'type'       => 'pdo',
@@ -34,7 +34,7 @@ return array
             'dsn'        => 'mysql:host=localhost;dbname=judge',
             'username'   => 'root',
             'password'   => 'r00tdb',
-            'persistent' => FALSE,
+            'persistent' => false,
         ),
         /**
          * The following extra options are available for PDO:
@@ -43,7 +43,7 @@ return array
          */
         'table_prefix' => '',
         'charset'      => 'utf8',
-        'caching'      => FALSE,
-        'profiling'    => TRUE,
+        'caching'      => false,
+        'profiling'    => true,
     ),
 );
