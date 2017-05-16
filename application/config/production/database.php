@@ -9,7 +9,7 @@ return array
     (
         'type'       => 'MySQLi',
         'connection' => array(
-            'hostname'   => '127.0.0.1',
+            'hostname'   => '47.93.36.139',
             'database'   => 'acm',
             'username'   => 'root',
             'password'   => '19950305',
